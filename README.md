@@ -543,7 +543,7 @@ APP_SCAN_TIMEOUT="60"
 With Windows still powered on, run the WinApps installer.
 
 ```bash
-bash <(curl https://raw.githubusercontent.com/winapps-org/winapps/main/setup.sh)
+bash <(curl https://raw.githubusercontent.com/theguywiththeproblem/winapps/main/setup.sh)
 ```
 
 Once WinApps is installed, a list of additional arguments can be accessed by running `winapps-setup --help`.
