@@ -328,11 +328,13 @@ function waCheckVMRunning() {
                 dprint "WINDOWS PAUSED. RESUMING WINDOWS."
                 notify-send --expire-time=4000 --icon="dialog-info" --app-name="WinApps" --urgency="low" "WinApps" "Resuming Windows."
                 virsh resume "$VM_NAME" &>/dev/null || EXIT_STATUS=$EC_FAIL_RESUME
+                virsh domtime "$VM_NAME" --now
             fi
         elif (virsh list --state-paused --name | xargs | grep -wq "$VM_NAME"); then
             dprint "WINDOWS PAUSED. RESUMING WINDOWS."
             notify-send --expire-time=4000 --icon="dialog-info" --app-name="WinApps" --urgency="low" "WinApps" "Resuming Windows."
             virsh resume "$VM_NAME" &>/dev/null || EXIT_STATUS=$EC_FAIL_RESUME
+            virsh domtime "$VM_NAME" --now
         elif (virsh list --state-other --name | xargs | grep -wq "$VM_NAME"); then
             if (virsh domstate "$VM_NAME" | xargs | grep -wq "shutdown"); then
                 dprint "WINDOWS SHUTTING DOWN. WAITING."
@@ -387,6 +389,7 @@ function waCheckVMRunning() {
             elif (virsh domstate "$VM_NAME" | xargs | grep -wq "pmsuspended" ); then
                 dprint "WINDOWS SUSPENDED. RESUMING WINDOWS."
                 virsh resume "$VM_NAME" &>/dev/null || EXIT_STATUS=$EC_FAIL_RESUME
+                virsh domtime "$VM_NAME" --now
             fi
         fi
     else
